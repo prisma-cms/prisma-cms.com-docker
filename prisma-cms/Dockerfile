@@ -10,8 +10,16 @@ ENV endpoint $endpoint
 ARG ENV_MODE
 ENV ENV_MODE $ENV_MODE
 
-# RUN apk add bash mc python3 make g++
-RUN apk add bash mc curl
+ARG PUBLIC_URL
+ENV PUBLIC_URL $PUBLIC_URL
+
+RUN apk add bash 
+RUN apk add mc 
+RUN apk add curl 
+RUN apk add python3 
+RUN apk add make 
+RUN apk add g++
+
 # RUN apk add --upgrade --no-cache vips-dev build-base \
 #   --repository https://alpine.global.ssl.fastly.net/alpine/v3.10/community/
 
