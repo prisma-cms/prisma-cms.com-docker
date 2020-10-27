@@ -64,6 +64,28 @@ services:
       - ENV_MODE=development
     # entrypoint: /usr/bin/entrypoint-front.sh
 
+  nextjs:
+    tty: true
+    build:
+      context: ./prisma-cms
+      network: ${NETWORK_NAME:-prisma-cms-default}
+      args: 
+        - SITE=prisma-cms.com--nextjs
+        - ROLE=FRONT
+        - ENV_MODE=development
+        - endpoint=${dev_endpoint}
+        - API_ENDPOINT=${API_ENDPOINT}
+    volumes:
+      - ./prisma-cms/${SITE:-boilerplate}/shared:/www/prisma-cms.com--nextjs/shared
+      - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/prisma-cms.com--nextjs/uploads
+    # environment: 
+    env_file: 
+      - .env
+    environment: 
+      - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
+      - ENV_MODE=development
+    # entrypoint: /usr/bin/entrypoint-front.sh
+
   api:
     tty: true
     build:

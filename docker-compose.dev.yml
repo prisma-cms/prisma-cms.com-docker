@@ -15,6 +15,11 @@ services:
       - ./prisma-cms/${SITE:-boilerplate}/src:/www/${SITE:-boilerplate}/src
     command: bash -c "yarn deploy && yarn start"
 
+  nextjs:
+    volumes:
+      - ./prisma-cms/prisma-cms.com--nextjs/src:/www/prisma-cms.com--nextjs/src
+    command: bash -c "yarn dev"
+
   api:
     volumes:
       - ./prisma-cms/${SITE:-boilerplate}/src:/www/${SITE:-boilerplate}/src

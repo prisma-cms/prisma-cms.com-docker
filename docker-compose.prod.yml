@@ -22,6 +22,16 @@ services:
         - endpoint=${prod_endpoint}
     command: yarn start-ssr
 
+  nextjs:
+    restart: always
+    environment: 
+      ENV_MODE: production
+    build:
+      args: 
+        - ENV_MODE=production
+        - endpoint=${prod_endpoint}
+    command: bash -c "yarn start"
+
   api:
     restart: always
     environment: 
