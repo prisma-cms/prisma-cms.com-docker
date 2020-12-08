@@ -4,6 +4,7 @@
 [submodule "prisma-cms/prisma-cms.com"]
 	path = prisma-cms/prisma-cms.com
 	url = https://github.com/prisma-cms/prisma-cms.com
+	branch = v4
 [submodule "prisma-cms/prisma-cms.com--nextjs"]
 	path = prisma-cms/prisma-cms.com--nextjs
 	url = https://github.com/prisma-cms/prisma-cms.com
