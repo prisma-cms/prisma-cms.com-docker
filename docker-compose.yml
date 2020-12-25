@@ -110,6 +110,9 @@ services:
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
       - endpoint=${dev_endpoint}
       - GethServer=${ETHEREUM_GATEWAY:-https://cloudflare-eth.com}
+      - MONGODB_URL=mongodb://mongodb:27017
+      - LANG=ru_RU.UTF-8
+      - LANGUAGE=ru_RU.UTF-8
     # entrypoint: /usr/bin/entrypoint-api.sh
 
   # web-server

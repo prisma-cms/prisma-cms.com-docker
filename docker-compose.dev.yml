@@ -26,6 +26,8 @@ services:
     environment: 
       - SendmailTest=true
     command: bash -c "yarn deploy && yarn start-server-dev"
+    ports:
+      - 4000:4000
 
   proxy:
     ports:
@@ -40,3 +42,35 @@ services:
   mail:
     ports:
       - 8025:8025
+
+  freecodecamp:
+    tty: true
+    # user: node
+    build:
+      context: ./freecodecamp
+    env_file: 
+      - .env
+    # command: npm run develop
+    command: npm run seed:challenges
+    depends_on:
+      - mongodb
+      
+  mongodb:
+    image: mongo
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: mongo
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: 'root'
+      ME_CONFIG_BASICAUTH_PASSWORD: 'mongo'
+      ME_CONFIG_MONGODB_SERVER: 'mongodb'
+      # ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      # ME_CONFIG_MONGODB_ADMINPASSWORD: mongo
