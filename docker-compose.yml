@@ -94,7 +94,7 @@ services:
         - endpoint=${dev_endpoint}
         - API_ENDPOINT=${API_ENDPOINT}
     volumes:
-      - ./prisma-cms/${SITE:-boilerplate}/shared:/www/freecode.academy/shared
+      - ./prisma-cms/freecode.academy/shared:/www/freecode.academy/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads
     env_file: 
       - .env
