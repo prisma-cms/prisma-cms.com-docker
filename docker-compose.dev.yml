@@ -20,6 +20,11 @@ services:
       - ./prisma-cms/prisma-cms.com--nextjs/src:/www/prisma-cms.com--nextjs/src
     command: bash -c "yarn dev"
 
+  freecode_academy:
+    volumes:
+      - ./prisma-cms/freecode.academy/src:/www/freecode.academy/src
+    command: bash -c "yarn dev"
+
   api:
     volumes:
       - ./prisma-cms/${SITE:-boilerplate}/src:/www/${SITE:-boilerplate}/src

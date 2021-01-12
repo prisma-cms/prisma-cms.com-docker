@@ -56,13 +56,11 @@ services:
       # - shared:/www/${SITE:-boilerplate}/shared
       - ./prisma-cms/${SITE:-boilerplate}/shared:/www/${SITE:-boilerplate}/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/${SITE:-boilerplate}/uploads
-    # environment: 
     env_file: 
       - .env
     environment: 
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
       - ENV_MODE=development
-    # entrypoint: /usr/bin/entrypoint-front.sh
 
   nextjs:
     tty: true
@@ -78,13 +76,31 @@ services:
     volumes:
       - ./prisma-cms/${SITE:-boilerplate}/shared:/www/prisma-cms.com--nextjs/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/prisma-cms.com--nextjs/uploads
-    # environment: 
     env_file: 
       - .env
     environment: 
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
       - ENV_MODE=development
-    # entrypoint: /usr/bin/entrypoint-front.sh
+
+  freecode_academy:
+    tty: true
+    build:
+      context: ./prisma-cms
+      network: ${NETWORK_NAME:-prisma-cms-default}
+      args: 
+        - SITE=freecode.academy
+        - ROLE=FRONT
+        - ENV_MODE=development
+        - endpoint=${dev_endpoint}
+        - API_ENDPOINT=${API_ENDPOINT}
+    volumes:
+      - ./prisma-cms/${SITE:-boilerplate}/shared:/www/freecode.academy/shared
+      - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads
+    env_file: 
+      - .env
+    environment: 
+      - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
+      - ENV_MODE=development
 
   api:
     tty: true

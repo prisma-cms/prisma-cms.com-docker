@@ -12,3 +12,6 @@
 [submodule "freecodecamp/freeCodeCamp"]
 	path = freecodecamp/freeCodeCamp
 	url = https://github.com/freeCodeCamp/freeCodeCamp.git
+[submodule "prisma-cms/freecode.academy"]
+	path = prisma-cms/freecode.academy
+	url = https://github.com/freecode-academy/freecode.academy
