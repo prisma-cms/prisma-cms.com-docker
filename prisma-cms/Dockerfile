@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:10 as build
+FROM mhart/alpine-node:14 as build
 
 ARG SITE=boilerplate
 
@@ -19,9 +19,10 @@ ENV PUBLIC_URL $PUBLIC_URL
 RUN apk add bash 
 RUN apk add mc 
 RUN apk add curl 
-RUN apk add python3 
+RUN apk add python
 RUN apk add make 
 RUN apk add g++
+RUN apk add git 
 
 # https://gist.github.com/alextanhongpin/aa55c082a47b9a1b0060a12d85ae7923
 # RUN apk --no-cache add ca-certificates wget && \
