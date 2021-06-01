@@ -16,6 +16,9 @@ ENV ENV_MODE $ENV_MODE
 ARG PUBLIC_URL
 ENV PUBLIC_URL $PUBLIC_URL
 
+ARG PWA
+ENV PWA $PWA
+
 RUN apk add bash 
 RUN apk add mc 
 RUN apk add curl 

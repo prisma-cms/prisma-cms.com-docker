@@ -93,6 +93,7 @@ services:
         - ENV_MODE=development
         - endpoint=${dev_endpoint}
         - API_ENDPOINT=${API_ENDPOINT}
+        - PWA=${PWA}
     volumes:
       - ./prisma-cms/freecode.academy/shared:/www/freecode.academy/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads
