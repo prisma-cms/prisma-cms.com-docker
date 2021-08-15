@@ -94,14 +94,16 @@ services:
         - endpoint=${dev_endpoint}
         - API_ENDPOINT=${API_ENDPOINT}
         - PWA=${PWA}
+        - DATABASE_URL=${DATABASE_URL}
     volumes:
       - ./prisma-cms/freecode.academy/shared:/www/freecode.academy/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads
     env_file: 
       - .env
     environment: 
-      - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
       - ENV_MODE=development
+      # Deprecated
+      - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
 
   api:
     tty: true
