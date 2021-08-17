@@ -98,6 +98,8 @@ services:
     volumes:
       - ./prisma-cms/freecode.academy/shared:/www/freecode.academy/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads
+      # For any server config files, for example DKIM
+      - ./opt:/opt
     env_file: 
       - .env
     environment: 
