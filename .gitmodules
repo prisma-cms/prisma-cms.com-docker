@@ -14,4 +14,4 @@
 [submodule "prisma-cms/freecode.academy"]
 	path = prisma-cms/freecode.academy
 	url = https://github.com/freecode-academy/freecode.academy
-	branch = nextjs-nexus
+	branch = master
