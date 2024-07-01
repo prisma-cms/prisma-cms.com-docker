@@ -179,6 +179,13 @@ services:
       #      - "49152-65535:49152-65535"
       #      - "49152-65535:49152-65535/udp"
 
+  tolgee:
+    image: tolgee/tolgee
+    volumes:
+      - ./tolgee/data:/data
+    env_file:
+      - .env
+
 # volumes:
 #   mysql:
 # schema:

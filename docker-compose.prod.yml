@@ -3,16 +3,16 @@ version: "3.7"
 services:
 
   prisma:
-    restart: always
+    restart: unless-stopped
 
   mysql:
-    restart: always
+    restart: unless-stopped
 
   pma:
-    restart: always
+    restart: unless-stopped
 
   front:
-    restart: always
+    restart: unless-stopped
     environment: 
       ENV_MODE: production
     build:
@@ -23,7 +23,7 @@ services:
     command: yarn start-ssr
 
   nextjs:
-    restart: always
+    restart: unless-stopped
     environment: 
       ENV_MODE: production
     build:
@@ -33,7 +33,7 @@ services:
     command: bash -c "yarn start"
 
   freecode_academy:
-    restart: always
+    restart: unless-stopped
     environment: 
       ENV_MODE: production
     build:
@@ -43,7 +43,7 @@ services:
     command: bash -c "yarn start"
 
   api:
-    restart: always
+    restart: unless-stopped
     environment: 
       - endpoint=${prod_endpoint}
     build:
@@ -53,7 +53,7 @@ services:
     command: "yarn start-server"
 
   proxy:
-    restart: always
+    restart: unless-stopped
     environment:
       - ACME_AGREE=true
     ports:
@@ -61,7 +61,10 @@ services:
       - 443:443
 
   rtcmultyconnection:
-    restart: always
+    restart: unless-stopped
 
   coturn:
-    restart: always
+    restart: unless-stopped
+
+  tolgee:
+    restart: unless-stopped
