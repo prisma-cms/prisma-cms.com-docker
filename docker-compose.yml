@@ -186,6 +186,12 @@ services:
     env_file:
       - .env
 
+  libretranslate:
+    image: libretranslate/libretranslate
+    user: "root"
+    volumes:
+      - ./libretranslate/db/argos-translate/packages:/root/.local/share/argos-translate/packages
+
 # volumes:
 #   mysql:
 # schema:

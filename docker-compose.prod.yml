@@ -68,3 +68,6 @@ services:
 
   tolgee:
     restart: unless-stopped
+
+  libretranslate:
+    restart: unless-stopped
