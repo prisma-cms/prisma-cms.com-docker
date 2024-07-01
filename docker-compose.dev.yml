@@ -1,14 +1,13 @@
 version: "3.7"
 
 services:
-
   prisma:
     ports:
-      - '4466:4466'
+      - "4466:4466"
 
   mysql:
     ports:
-      - '3306:3306'
+      - "3306:3306"
 
   front:
     volumes:
@@ -23,12 +22,15 @@ services:
   freecode_academy:
     volumes:
       - ./prisma-cms/freecode.academy/src:/www/freecode.academy/src
+      - ./prisma-cms/freecode.academy/server:/www/freecode.academy/server
     command: bash -c "yarn dev"
+    ports:
+      - "3000:3000"
 
   api:
     volumes:
       - ./prisma-cms/${SITE:-boilerplate}/src:/www/${SITE:-boilerplate}/src
-    environment: 
+    environment:
       - SendmailTest=true
     command: bash -c "yarn deploy && yarn start-server-dev"
     ports:
@@ -54,13 +56,13 @@ services:
     # user: node
     build:
       context: ./freecodecamp
-    env_file: 
+    env_file:
       - .env
     # command: npm run develop
     command: npm run seed:challenges
     depends_on:
       - mongodb
-      
+
   mongodb:
     image: mongo
     # environment:
@@ -74,8 +76,8 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_BASICAUTH_USERNAME: 'root'
-      ME_CONFIG_BASICAUTH_PASSWORD: 'mongo'
-      ME_CONFIG_MONGODB_SERVER: 'mongodb'
+      ME_CONFIG_BASICAUTH_USERNAME: "root"
+      ME_CONFIG_BASICAUTH_PASSWORD: "mongo"
+      ME_CONFIG_MONGODB_SERVER: "mongodb"
       # ME_CONFIG_MONGODB_ADMINUSERNAME: root
       # ME_CONFIG_MONGODB_ADMINPASSWORD: mongo

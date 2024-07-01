@@ -4,10 +4,10 @@ services:
   prisma:
     image: prismagraphql/prisma:1.34
     # container_name: "prisma"
-    
+
     # Uncomment for open ports
     # ports:
-      # - '4466:4466'
+    # - '4466:4466'
     environment:
       PRISMA_CONFIG: |
         port: 4466
@@ -26,11 +26,12 @@ services:
 
   mysql:
     image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      # Can set another path 
-      - mysql:/var/lib/mysql
+      # NOTE: your data will be stored in ./mysql
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf.d:/etc/mysql/conf.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD:-your_mysql_password}
 
   pma:
     image: phpmyadmin/phpmyadmin
@@ -46,7 +47,7 @@ services:
     build:
       context: ./prisma-cms
       network: ${NETWORK_NAME:-prisma-cms-default}
-      args: 
+      args:
         - SITE=${SITE:-boilerplate}
         - ROLE=FRONT
         - ENV_MODE=development
@@ -56,9 +57,9 @@ services:
       # - shared:/www/${SITE:-boilerplate}/shared
       - ./prisma-cms/${SITE:-boilerplate}/shared:/www/${SITE:-boilerplate}/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/${SITE:-boilerplate}/uploads
-    env_file: 
+    env_file:
       - .env
-    environment: 
+    environment:
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
       - ENV_MODE=development
 
@@ -67,7 +68,7 @@ services:
     build:
       context: ./prisma-cms
       network: ${NETWORK_NAME:-prisma-cms-default}
-      args: 
+      args:
         - SITE=prisma-cms.com--nextjs
         - ROLE=FRONT
         - ENV_MODE=development
@@ -76,9 +77,9 @@ services:
     volumes:
       - ./prisma-cms/${SITE:-boilerplate}/shared:/www/prisma-cms.com--nextjs/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/prisma-cms.com--nextjs/uploads
-    env_file: 
+    env_file:
       - .env
-    environment: 
+    environment:
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
       - ENV_MODE=development
 
@@ -87,9 +88,10 @@ services:
     build:
       context: ./prisma-cms
       network: ${NETWORK_NAME:-prisma-cms-default}
-      args: 
+      dockerfile: Dockerfile.freecode.academy
+      args:
         - SITE=freecode.academy
-        - ROLE=FRONT
+        # - ROLE=FRONT
         - ENV_MODE=development
         - endpoint=${dev_endpoint}
         - API_ENDPOINT=${API_ENDPOINT}
@@ -100,9 +102,9 @@ services:
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads
       # For any server config files, for example DKIM
       - ./opt:/opt
-    env_file: 
+    env_file:
       - .env
-    environment: 
+    environment:
       - ENV_MODE=development
       # Deprecated
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
@@ -112,7 +114,7 @@ services:
     build:
       context: ./prisma-cms
       network: ${NETWORK_NAME:-prisma-cms-default}
-      args: 
+      args:
         - SITE=${SITE:-boilerplate}
         - ROLE=API
         - ENV_MODE=development
@@ -125,9 +127,9 @@ services:
       - ./opt:/opt
     # depends_on:
     #   - prisma
-    env_file: 
+    env_file:
       - .env
-    environment: 
+    environment:
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
       - endpoint=${dev_endpoint}
       - GethServer=${ETHEREUM_GATEWAY:-https://cloudflare-eth.com}
@@ -142,7 +144,7 @@ services:
       - ACME_AGREE=true
     build:
       context: ./caddy
-  
+
   # mail-server
   mail:
     image: mailhog/mailhog
@@ -176,12 +178,11 @@ services:
       # Relay Ports
       #      - "49152-65535:49152-65535"
       #      - "49152-65535:49152-65535/udp"
-      
 
-volumes:
-  mysql:
-  # schema:
-  # shared:
+# volumes:
+#   mysql:
+# schema:
+# shared:
 
 networks:
   default:
