@@ -7,3 +7,61 @@ http://:2015 http://:80 {
 
 	reverse_proxy freecode_academy:3000
 }
+
+simly.ru:443 {
+    tls devops@newpg.ru
+
+    reverse_proxy simly-docker-nextjs-nexus-1:3000
+}
+
+
+freecode.academy:443 {
+    tls devops@newpg.ru
+
+    reverse_proxy docker-freecode_academy-1:3000
+}
+
+tolgee.freecode.academy:443 {
+    tls devops@newpg.ru
+
+    reverse_proxy docker-tolgee-1:8080
+}
+
+
+walky.travel:443 {
+    tls devops@newpg.ru
+
+    header {
+        Access-Control-Allow-Origin https://walky.travel
+        defer
+    }
+
+    handle_path /styles/* {
+
+        rewrite * /styles{uri}
+        reverse_proxy http://walkytravel--docker-tileserver-1:80
+    }
+
+    reverse_proxy walkytravel--docker-nextjs-nexus-1:3000
+}
+
+
+gorodskie-bani.ru:443 www.gorodskie-bani.ru:443 {
+    tls devops@newpg.ru
+
+    reverse_proxy gorodskie-bani-ru-nextjs-1:3000
+}
+
+
+pivkarta.ru:80 www.pivkarta.ru:80 {
+    # tls off
+
+    reverse_proxy docker-pivkartaru-front-1:3000
+}
+
+
+pivkarta.ru:443 www.pivkarta.ru:443 {
+    tls devops@newpg.ru
+
+    reverse_proxy docker-pivkartaru-front-1:3000
+}
