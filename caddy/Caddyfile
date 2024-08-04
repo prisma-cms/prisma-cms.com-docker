@@ -1,0 +1,9 @@
+# {
+#     debug
+# }
+
+# https://caddy.community/t/wildcard-get-subdomain-name-to-reverse-proxy/19626/4
+http://:2015 http://:80 {
+
+	reverse_proxy freecode_academy:3000
+}
