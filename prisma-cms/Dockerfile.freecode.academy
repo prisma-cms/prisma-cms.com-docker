@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:14 as build
+FROM node:18-slim as build
 
 ARG SITE=boilerplate
 
@@ -22,36 +22,29 @@ ENV PWA $PWA
 ARG DATABASE_URL
 ENV DATABASE_URL $DATABASE_URL
 
-RUN apk add bash 
-RUN apk add mc 
-RUN apk add curl 
-RUN apk add python
-RUN apk add make 
-RUN apk add g++
-RUN apk add git 
+RUN apt update
+RUN apt-get install bash -y
+RUN apt-get install mc -y
+RUN apt-get install curl -y
+RUN apt-get install gnupg -y
+RUN apt-get install make -y
+RUN apt-get install g++ -y
+RUN apt-get install git -y
 
-# https://gist.github.com/alextanhongpin/aa55c082a47b9a1b0060a12d85ae7923
-# RUN apk --no-cache add ca-certificates wget && \
-#     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-#     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
-#     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-bin-2.25-r0.apk && \
-#     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-i18n-2.25-r0.apk && \
-#     apk add glibc-bin-2.25-r0.apk glibc-i18n-2.25-r0.apk glibc-2.25-r0.apk
-
-# COPY ./locale.md /locale.md
-# RUN cat /locale.md | xargs -i /usr/glibc-compat/bin/localedef -i {} -f UTF-8 {}.UTF-8
-
-# RUN apk add --upgrade --no-cache vips-dev build-base \
-#   --repository https://alpine.global.ssl.fastly.net/alpine/v3.10/community/
+# Install Yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarnkey.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt-get install yarn -y
 
 WORKDIR /www/${SITE}/
 
-COPY ./${SITE} .
-# COPY ./bin/* /usr/bin/
+# Copy only package.json and yarn.lock to install dependencies
+COPY ./${SITE}/package.json ./${SITE}/yarn.lock ./
 
-# Установку зависимостей нельзя переносить в entrypoint,
-# потому что тот скрипт срабатывает уже тогда, когда контейнер создан и заменен имеющийся (если уже был запущен)
-RUN yarn install --ignore-engines
+RUN yarn install
+
+# Copy the rest of the site files
+COPY ./${SITE} .
 
 RUN yarn deploy
 RUN if [ "$ENV_MODE" = "production" ] ; then yarn build ; fi
