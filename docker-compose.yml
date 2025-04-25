@@ -108,6 +108,7 @@ services:
       - ENV_MODE=development
       # Deprecated
       - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
+      - MAIN_AI_AGENT_USERNAME=${MAIN_AI_AGENT_USERNAME:-freecoder}
 
   api:
     tty: true
