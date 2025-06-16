@@ -88,7 +88,7 @@ services:
     build:
       context: ./prisma-cms
       network: ${NETWORK_NAME:-prisma-cms-default}
-      dockerfile: Dockerfile.freecode.academy
+      # dockerfile: Dockerfile.freecode.academy
       args:
         - SITE=freecode.academy
         # - ROLE=FRONT
@@ -97,6 +97,9 @@ services:
         - API_ENDPOINT=${API_ENDPOINT}
         - PWA=${PWA}
         - DATABASE_URL=${DATABASE_URL}
+        - OPENAI_API_KEY=${OPENAI_API_KEY}
+        - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL}
+        - OPENAI_DEFAULT_MODEL=${OPENAI_DEFAULT_MODEL}
     volumes:
       - ./prisma-cms/freecode.academy/shared:/www/freecode.academy/shared
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads

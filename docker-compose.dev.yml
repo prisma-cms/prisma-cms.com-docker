@@ -21,11 +21,13 @@ services:
 
   freecode_academy:
     volumes:
+      - ./prisma-cms/freecode.academy/pages:/www/freecode.academy/pages
       - ./prisma-cms/freecode.academy/src:/www/freecode.academy/src
       - ./prisma-cms/freecode.academy/server:/www/freecode.academy/server
     command: bash -c "yarn dev"
     ports:
-      - "3000:3000"
+      - 3030:3000
+      - 4040:4000
 
   api:
     volumes:
