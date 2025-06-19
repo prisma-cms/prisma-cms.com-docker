@@ -21,7 +21,10 @@ services:
 
   freecode_academy:
     volumes:
+      - ./prisma-cms/freecode.academy/package.json:/www/freecode.academy/package.json
+      - ./prisma-cms/freecode.academy/package-lock.json:/www/freecode.academy/package-lock.json
       - ./prisma-cms/freecode.academy/pages:/www/freecode.academy/pages
+      - ./prisma-cms/freecode.academy/prisma:/www/freecode.academy/prisma
       - ./prisma-cms/freecode.academy/src:/www/freecode.academy/src
       - ./prisma-cms/freecode.academy/server:/www/freecode.academy/server
     command: bash -c "yarn dev"

@@ -101,8 +101,9 @@ services:
         - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL}
         - OPENAI_DEFAULT_MODEL=${OPENAI_DEFAULT_MODEL}
     volumes:
+      - ./prisma-cms/freecode.academy/public:/www/freecode.academy/public
       - ./prisma-cms/freecode.academy/shared:/www/freecode.academy/shared
-      - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/freecode.academy/uploads
+      - ./prisma-cms/freecode.academy/uploads:/www/freecode.academy/uploads
       # For any server config files, for example DKIM
       - ./opt:/opt
     env_file:
