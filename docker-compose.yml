@@ -105,6 +105,7 @@ services:
       - ./prisma-cms/freecode.academy/public:/www/freecode.academy/public
       - ./prisma-cms/freecode.academy/shared:/www/freecode.academy/shared
       - ./prisma-cms/freecode.academy/uploads:/www/freecode.academy/uploads
+      - ./prisma-cms/freecode.academy/server/openaiClient/data:/www/freecode.academy/server/openaiClient/data
       # For any server config files, for example DKIM
       - ./opt:/opt
     env_file:
