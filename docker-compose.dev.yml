@@ -28,7 +28,7 @@ services:
       - ./prisma-cms/freecode.academy/src:/www/freecode.academy/src
       - ./prisma-cms/freecode.academy/server:/www/freecode.academy/server
       # TODO Обновить призму и нексус, переписать серверное апи и удалить этот волюм
-      - ./prisma-cms/freecode.academy/node_modules/.prisma/client:/www/freecode.academy/node_modules/.prisma/client
+      # - ./prisma-cms/freecode.academy/node_modules/.prisma/client:/www/freecode.academy/node_modules/.prisma/client
     command: bash -c "yarn dev"
     ports:
       - 3030:3000
@@ -91,3 +91,11 @@ services:
     ports:
       - "25432:25432"
       - "8080:8080"
+
+  supabase:
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    ports:
+      - 5050:80
