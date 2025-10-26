@@ -27,6 +27,7 @@ services:
       - ./prisma-cms/freecode.academy/prisma:/www/freecode.academy/prisma
       - ./prisma-cms/freecode.academy/src:/www/freecode.academy/src
       - ./prisma-cms/freecode.academy/server:/www/freecode.academy/server
+      - ./prisma-cms/freecode.academy/next.config.js:/www/freecode.academy/next.config.js
       # TODO Обновить призму и нексус, переписать серверное апи и удалить этот волюм
       # - ./prisma-cms/freecode.academy/node_modules/.prisma/client:/www/freecode.academy/node_modules/.prisma/client
     command: bash -c "yarn dev"
