@@ -1,7 +1,6 @@
 version: "3.7"
 
 services:
-
   prisma:
     restart: unless-stopped
 
@@ -13,10 +12,10 @@ services:
 
   front:
     restart: unless-stopped
-    environment: 
+    environment:
       ENV_MODE: production
     build:
-      args: 
+      args:
         - PUBLIC_URL=${PUBLIC_URL:-/}
         - ENV_MODE=production
         - endpoint=${prod_endpoint}
@@ -24,30 +23,30 @@ services:
 
   nextjs:
     restart: unless-stopped
-    environment: 
+    environment:
       ENV_MODE: production
     build:
-      args: 
+      args:
         - ENV_MODE=production
         - endpoint=${prod_endpoint}
     command: bash -c "yarn start"
 
   freecode_academy:
     restart: unless-stopped
-    environment: 
+    environment:
       ENV_MODE: production
     build:
-      args: 
+      args:
         - ENV_MODE=production
         - endpoint=${prod_endpoint}
     command: bash -c "yarn start"
 
   api:
     restart: unless-stopped
-    environment: 
+    environment:
       - endpoint=${prod_endpoint}
     build:
-      args: 
+      args:
         - ENV_MODE=production
         - endpoint=${prod_endpoint}
     command: "yarn start-server"
@@ -62,10 +61,10 @@ services:
 
   nextjs-nexus:
     restart: always
-    environment: 
+    environment:
       ENV_MODE: production
     build:
-      args: 
+      args:
         - ENV_MODE=production
     command: npm run start
 
@@ -79,4 +78,10 @@ services:
     restart: unless-stopped
 
   libretranslate:
+    restart: unless-stopped
+
+  supabase:
+    restart: unless-stopped
+
+  n8n:
     restart: unless-stopped
