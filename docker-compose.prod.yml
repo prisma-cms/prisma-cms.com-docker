@@ -85,3 +85,6 @@ services:
 
   n8n:
     restart: unless-stopped
+
+  open-webui:
+    restart: unless-stopped

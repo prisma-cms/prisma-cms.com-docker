@@ -107,3 +107,19 @@ services:
       - N8N_SECURE_COOKIE=false
     ports:
       - 5678:5678
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      # Это чтобы сваггер документация работала
+      # https://github.com/open-webui/open-webui/discussions/6942#discussioncomment-12802712
+      - ENV=dev
+    ports:
+      - "3123:8080"
