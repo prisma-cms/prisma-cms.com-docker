@@ -110,6 +110,10 @@ services:
       - ./prisma-cms/freecode.academy/server/openaiClient/data:/www/freecode.academy/server/openaiClient/data
       # For any server config files, for example DKIM
       - ./opt:/opt
+      # Docker socket для управления контейнерами n8n-trainer
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Скрипты управления контейнерами
+      # - ./n8n-trainer/scripts:/scripts/n8n-trainer
     env_file:
       - .env
     environment:
@@ -151,6 +155,7 @@ services:
   proxy:
     environment:
       - ACME_AGREE=true
+      - CADDY_DIGITALOCEAN_API_TOKEN=${CADDY_DIGITALOCEAN_API_TOKEN}
     build:
       context: ./caddy
     volumes:
@@ -266,6 +271,23 @@ services:
     # depends_on:
     #   postgres:
     #     condition: service_healthy
+
+  n8n-trainer-lesson01:
+    image: docker-freecode-n8n-trainer-lesson-01-if
+    build:
+      context: ./n8n-trainer
+      args:
+        - LESSON=lesson-01-if
+    environment:
+      - DB_TYPE=sqlite
+      - N8N_SECURE_COOKIE=false
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_DIAGNOSTICS_CONFIG_FRONTEND=false
+      - N8N_DIAGNOSTICS_CONFIG_BACKEND=false
+      - N8N_AUTOSAVE_WORKFLOWS=true
+      - N8N_IMPORT_WORKFLOWS=true
+    restart: unless-stopped
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:cuda
