@@ -47,6 +47,7 @@ services:
   proxy:
     ports:
       - 2015:2015
+      - 2443:2443
 
   pma:
     ports:
