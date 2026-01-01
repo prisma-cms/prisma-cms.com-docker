@@ -82,3 +82,16 @@ services:
 
   supabase:
     restart: unless-stopped
+
+  n8n:
+    build:
+      args:
+        - ENV_MODE=production
+    environment:
+      ENV_MODE: production
+      N8N_DELETE_CREDENTIALS_AFTER_IMPORT: true
+    restart: unless-stopped
+    command: npm run start
+    labels:
+      - "traefik.http.routers.n8n.entrypoints=websecure"
+      - "traefik.http.routers.n8n.tls.certresolver=letsencrypt"

@@ -101,3 +101,9 @@ services:
   pgadmin:
     ports:
       - 5050:80
+
+  n8n:
+    environment:
+      - N8N_SECURE_COOKIE=false
+    ports:
+      - 5678:5678
