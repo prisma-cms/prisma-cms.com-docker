@@ -15,6 +15,11 @@
 	path = prisma-cms/freecode.academy
 	url = https://github.com/freecode-academy/freecode.academy
 	branch = master
+# Deprecated
 [submodule "n8n/n8n"]
 	path = n8n/n8n
 	url = git@github.com:freecode-academy/n8n.git
+[submodule "agent"]
+	path = agent
+	url = https://github.com/freecode-academy/agent
+	branch = freecode_academy
